@@ -38,6 +38,7 @@
     "zod": "^4.1.12"
   },
   "dependencies": {
+    "@nestjs/config": "^4.0.2",
     "@nestjs/swagger": "^11.2.1"
   }
 }
