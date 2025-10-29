@@ -1,6 +1,6 @@
 import { oc } from "@orpc/contract";
-import { CredentialSchema, TokenSchema } from "../schemas/auth";
-import { NewUserSchema, UserSchema } from "../schemas/user";
+import { CredentialSchema, TokenSchema } from "../../schemas/auth.schema";
+import { NewUserSchema, UserSchema } from "../../schemas/user.schema";
 
 export const signup = oc
   .route({

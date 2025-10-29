@@ -1,6 +1,6 @@
 import { Controller } from "@nestjs/common";
 import { Implement, implement, ORPCError } from "@orpc/nest";
-import { contract } from "src/contracts";
+import { contract } from "src/orpc/contract";
 import { PlanetService } from "./planet.service";
 
 @Controller()

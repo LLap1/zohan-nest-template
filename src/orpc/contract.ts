@@ -1,6 +1,10 @@
-import { me, signin, signup } from './auth'
-import { createPlanet, findPlanet, listPlanets, updatePlanet } from './planet'
-import { sse } from './sse'
+import { me, signin, signup } from "../modules/auth/auth.contract";
+import {
+  createPlanet,
+  findPlanet,
+  listPlanets,
+  updatePlanet,
+} from "../modules/planet/planet.contract";
 
 export const contract = {
   auth: {
@@ -15,6 +19,4 @@ export const contract = {
     find: findPlanet,
     update: updatePlanet,
   },
-
-  sse,
-}
+};

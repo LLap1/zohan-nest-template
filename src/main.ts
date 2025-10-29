@@ -1,10 +1,10 @@
 import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
+import { AppModule } from "./modules/app/app.module";
 import { apiReference } from "@scalar/nestjs-api-reference";
-import { OpenAPIService } from "./open-api/open-api.service";
 import { config } from "./config";
 import { logger } from "./lib/logger/logger";
 import { WinstonModule } from "nest-winston";
+import { generateOpenAPI } from "./open-api/open-api";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bodyParser: false,
@@ -12,14 +12,16 @@ async function bootstrap() {
       instance: logger,
     }),
   });
-  const openAPIService = app.get(OpenAPIService);
-  const spec = await openAPIService.spec();
+
+  const spec = await generateOpenAPI();
+
   app.use(
     "/docs",
     apiReference({
       content: spec,
     })
   );
+
   app.listen(config.nest.port);
 }
 

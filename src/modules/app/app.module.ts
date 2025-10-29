@@ -1,16 +1,14 @@
 import { Module } from "@nestjs/common";
-import { AuthController } from "./auth/auth.controller";
-import { PlanetController } from "./planet/planet.controller";
-import { PlanetService } from "./planet/planet.service";
-import { OpenAPIService } from "./open-api/open-api.service";
+import { AuthController } from "../auth/auth.controller";
+import { PlanetController } from "../planet/planet.controller";
+import { PlanetService } from "../planet/planet.service";
 import { onError, ORPCModule } from "@orpc/nest";
-import { config } from "./config";
+import { config } from "../../config";
 import { ConfigModule } from "@nestjs/config";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
 import { WinstonModule } from "nest-winston";
-import * as winston from "winston";
-import { logger } from "./lib/logger/logger";
+import { logger } from "../../lib/logger/logger";
 
 @Module({
   imports: [
@@ -33,9 +31,8 @@ import { logger } from "./lib/logger/logger";
       isGlobal: true,
       validate: () => config,
     }),
-    OpenAPIService,
   ],
   controllers: [AuthController, PlanetController],
-  providers: [PlanetService, OpenAPIService],
+  providers: [PlanetService],
 })
 export class AppModule {}
