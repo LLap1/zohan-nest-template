@@ -38,6 +38,7 @@
     "zod": "^4.1.12"
   },
   "dependencies": {
+    "@elastic/ecs-winston-format": "^1.5.3",
     "@nestjs/config": "^4.0.2",
     "@nestjs/serve-static": "^5.0.4",
     "@nestjs/swagger": "^11.2.1",

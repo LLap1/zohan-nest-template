@@ -8,9 +8,16 @@ import { config } from "./config";
 import { ConfigModule } from "@nestjs/config";
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
+import { WinstonModule } from "nest-winston";
+import * as winston from "winston";
+import { logger } from "./lib/logger";
 
 @Module({
   imports: [
+    WinstonModule.forRoot({
+      instance: logger,
+    }),
+
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, "..", "public"),
     }),
