@@ -10,7 +10,7 @@ import { ServeStaticModule } from "@nestjs/serve-static";
 import { join } from "path";
 import { WinstonModule } from "nest-winston";
 import * as winston from "winston";
-import { logger } from "./lib/logger";
+import { logger } from "./lib/logger/logger";
 
 @Module({
   imports: [
