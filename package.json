@@ -39,7 +39,15 @@
   },
   "dependencies": {
     "@nestjs/config": "^4.0.2",
+    "@nestjs/serve-static": "^5.0.4",
     "@nestjs/swagger": "^11.2.1",
-    "dotenv": "^17.2.3"
+    "@scalar/nestjs-api-reference": "^1.0.5",
+    "@scalar/openapi-parser": "^0.22.3",
+    "dotenv": "^17.2.3",
+    "fs": "0.0.1-security",
+    "nest-winston": "^1.10.2",
+    "path": "^0.12.7",
+    "url": "^0.11.4",
+    "winston": "^3.18.3"
   }
 }

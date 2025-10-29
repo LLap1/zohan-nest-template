@@ -1,9 +1,7 @@
-import { defineBuildConfig } from 'unbuild'
+import { defineBuildConfig } from "unbuild";
 
 export default defineBuildConfig({
-  entries: [
-    { input: 'dist/main.js', outDir: 'dist/unbuild', name: 'main' },
-  ],
+  entries: [{ input: "dist/main.js", outDir: "dist/unbuild", name: "main" }],
   failOnWarn: false,
   clean: false,
   rollup: {
@@ -15,4 +13,4 @@ export default defineBuildConfig({
       },
     },
   },
-})
+});

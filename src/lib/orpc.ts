@@ -7,9 +7,6 @@ import { JsonifiedClient } from "@orpc/openapi-client";
 
 const link = new OpenAPILink(contract, {
   url: "http://localhost:3000",
-  headers: () => ({
-    Authorization: "Bearer default-token",
-  }),
 });
 
 export const client: JsonifiedClient<ContractRouterClient<typeof contract>> =

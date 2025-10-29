@@ -8,8 +8,9 @@ import {
   UpdatePlanetSchema,
 } from "src/schemas/planet";
 import { NewUserSchema, UserSchema } from "src/schemas/user";
+import packageJson from "../../package.json";
 
-export class ReferenceService {
+export class OpenAPIService {
   private readonly openapiGenerator = new OpenAPIGenerator({
     schemaConverters: [new ZodToJsonSchemaConverter()],
   });
@@ -17,8 +18,9 @@ export class ReferenceService {
   spec() {
     return this.openapiGenerator.generate(contract, {
       info: {
-        title: "ORPC Playground",
-        version: "1.0.0",
+        title: packageJson.name,
+        version: packageJson.version,
+        description: packageJson.description,
       },
       security: [{ bearerAuth: [] }],
       components: {
