@@ -6,6 +6,8 @@ import { PlanetService } from './planet/planet.service'
 import { ReferenceController } from './reference/reference.controller'
 import { ReferenceService } from './reference/reference.service'
 import { onError, ORPCModule } from '@orpc/nest'
+import { config } from './config'
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
   imports: [
@@ -16,6 +18,10 @@ import { onError, ORPCModule } from '@orpc/nest'
         }),
       ],
       eventIteratorKeepAliveInterval: 5000, // 5 seconds
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validate: () => config,
     }),
   ],
   controllers: [AuthController, PlanetController, ReferenceController, OtherController],

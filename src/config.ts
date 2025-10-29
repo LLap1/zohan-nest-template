@@ -1,7 +1,18 @@
 import { z } from "zod";
+import { config as dotenvConfig } from "dotenv";
 
-const ENVSchema = z.object({
-  PORT: z.string().default("3000").transform(Number),
+dotenvConfig();
+
+export const configSchema = z.object({
+  nest: z.object({
+    port: z.number(),
+  }),
 });
 
-export const config = ENVSchema.parse(process.env);
+const templatedConfig: z.infer<typeof configSchema> = {
+  nest: {
+    port: Number(process.env.PORT) || 3000,
+  },
+};
+
+export const config = configSchema.parse(templatedConfig);
