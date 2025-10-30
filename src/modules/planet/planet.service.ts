@@ -2,19 +2,20 @@ import { Planet } from "src/schemas/planet.schema";
 import {
   NewPlanet,
   UpdatePlanet,
-} from "../../orpc/contracts/planet/planet.contract.schema";
-import { User } from "src/schemas/user.schema";
+} from "src/orpc/contracts/planet/planet.contract.schema";
 import { planets } from "./planet.mock";
+import { Span } from "nestjs-otel";
 
 export class PlanetService {
+  @Span("planet.list")
   list(): Planet[] {
     return planets;
   }
-
+  @Span("planet.find")
   find(id: number): Planet | undefined {
     return planets.find((planet) => planet.id === id);
   }
-
+  @Span("planet.create")
   create(newPlanet: NewPlanet): Planet {
     const id = planets.length + 1;
     const imageUrl = newPlanet.image
@@ -32,7 +33,7 @@ export class PlanetService {
     planets.push(planet);
     return planet;
   }
-
+  @Span("planet.update")
   update(planet: UpdatePlanet): Planet {
     const index = planets.findIndex((p) => p.id === planet.id);
 

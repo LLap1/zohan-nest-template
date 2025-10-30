@@ -5,9 +5,10 @@ import { config } from "./config";
 import { logger } from "./lib/logger/logger";
 import { WinstonModule } from "nest-winston";
 import { generateOpenAPIDocument } from "./docs/open-api.docs";
-import { client } from "./orpc/client";
+import node from "./lib/open-telemetry/node";
 
 async function bootstrap() {
+  node.start();
   const app = await NestFactory.create(AppModule, {
     bodyParser: false,
     logger: WinstonModule.createLogger({
@@ -24,10 +25,7 @@ async function bootstrap() {
     })
   );
 
-  app.listen(config.nest.port).then(async () => {
-    const planets = await client.planet.list();
-    console.log(planets);
-  });
+  app.listen(config.nest.port);
 }
 
 bootstrap();
