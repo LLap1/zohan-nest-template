@@ -1,10 +1,12 @@
 import * as z from "zod";
-import {
-  NewPlanetSchema,
-  PlanetSchema,
-  UpdatePlanetSchema,
-} from "../../schemas/planet.schema";
+import { NewPlanetSchema, UpdatePlanetSchema } from "./planet.contract.schema";
 import { oc } from "@orpc/contract";
+import { PlanetSchema } from "src/schemas/planet.schema";
+const ERROR_MAP = {
+  NOT_FOUND: {
+    message: "Planet not found",
+  },
+};
 
 export const listPlanets = oc
   .route({
@@ -13,12 +15,6 @@ export const listPlanets = oc
     summary: "List all planets",
     tags: ["Planets"],
   })
-  .input(
-    z.object({
-      limit: z.number().int().min(1).max(100).default(10),
-      cursor: z.number().int().min(0).default(0),
-    })
-  )
   .output(z.array(PlanetSchema));
 
 export const createPlanet = oc
@@ -28,6 +24,7 @@ export const createPlanet = oc
     summary: "Create a planet",
     tags: ["Planets"],
   })
+  .errors(ERROR_MAP)
   .input(NewPlanetSchema)
   .output(PlanetSchema);
 
@@ -38,6 +35,7 @@ export const findPlanet = oc
     summary: "Find a planet",
     tags: ["Planets"],
   })
+  .errors(ERROR_MAP)
   .input(PlanetSchema.pick({ id: true }))
   .output(PlanetSchema);
 
@@ -48,11 +46,6 @@ export const updatePlanet = oc
     summary: "Update a planet",
     tags: ["Planets"],
   })
-  .errors({
-    NOT_FOUND: {
-      message: "Planet not found",
-      data: z.object({ id: UpdatePlanetSchema.shape.id }),
-    },
-  })
+  .errors(ERROR_MAP)
   .input(UpdatePlanetSchema)
   .output(PlanetSchema);

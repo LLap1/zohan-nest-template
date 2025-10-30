@@ -4,7 +4,9 @@ import { apiReference } from "@scalar/nestjs-api-reference";
 import { config } from "./config";
 import { logger } from "./lib/logger/logger";
 import { WinstonModule } from "nest-winston";
-import { generateOpenAPI } from "./open-api/open-api";
+import { generateOpenAPIDocument } from "./orpc/docs/open-api.docs";
+import { openApiClient } from "./orpc/client";
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bodyParser: false,
@@ -13,16 +15,19 @@ async function bootstrap() {
     }),
   });
 
-  const spec = await generateOpenAPI();
+  const document = await generateOpenAPIDocument();
 
   app.use(
     "/docs",
     apiReference({
-      content: spec,
+      content: document,
     })
   );
 
-  app.listen(config.nest.port);
+  app.listen(config.nest.port).then(async () => {
+    const planets = await openApiClient.planet.list();
+    console.log(planets);
+  });
 }
 
 bootstrap();

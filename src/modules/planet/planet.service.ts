@@ -1,62 +1,25 @@
-import { NewPlanet, Planet, UpdatePlanet } from "src/schemas/planet.schema";
+import { Planet } from "src/schemas/planet.schema";
+import { NewPlanet, UpdatePlanet } from "./planet.contract.schema";
 import { User } from "src/schemas/user.schema";
-
-const planets: Planet[] = [
-  {
-    id: 1,
-    name: "Earth",
-    description: "The planet Earth",
-    imageUrl: "https://picsum.photos/200/300",
-    creator: {
-      id: "1",
-      name: "John Doe",
-      email: "john@doe.com",
-    },
-  },
-  {
-    id: 2,
-    name: "Mars",
-    description: "The planet Mars",
-    imageUrl: "https://picsum.photos/200/300",
-    creator: {
-      id: "1",
-      name: "John Doe",
-      email: "john@doe.com",
-    },
-  },
-  {
-    id: 3,
-    name: "Jupiter",
-    description: "The planet Jupiter",
-    imageUrl: "https://picsum.photos/200/300",
-    creator: {
-      id: "1",
-      name: "John Doe",
-      email: "john@doe.com",
-    },
-  },
-];
+import { planets } from "./planet.mock";
 
 export class PlanetService {
-  list(limit: number, cursor: number): Planet[] {
-    return planets.slice(cursor, cursor + limit);
+  list(): Planet[] {
+    return planets;
   }
 
   find(id: number): Planet | undefined {
     return planets.find((planet) => planet.id === id);
   }
 
-  create(
-    newPlanet: NewPlanet,
-    creator: User = { id: "1", name: "John Doe", email: "john@doe.com" }
-  ): Planet {
+  create(newPlanet: NewPlanet): Planet {
     const id = planets.length + 1;
     const imageUrl = newPlanet.image
       ? `https://example.com/cdn/${newPlanet.image.name}`
       : undefined;
 
     const planet: Planet = {
-      creator,
+      creator: newPlanet.creator,
       id,
       name: newPlanet.name,
       description: newPlanet.description,
@@ -64,7 +27,6 @@ export class PlanetService {
     };
 
     planets.push(planet);
-
     return planet;
   }
 
