@@ -3,9 +3,9 @@ import {
   findPlanet,
   listPlanets,
   updatePlanet,
-} from "../modules/planet/planet.contract";
+} from "./planet/planet.contract";
 
-export const contract = {
+export const root = {
   planet: {
     list: listPlanets,
     create: createPlanet,

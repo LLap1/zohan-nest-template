@@ -1,5 +1,8 @@
 import { Planet } from "src/schemas/planet.schema";
-import { NewPlanet, UpdatePlanet } from "./planet.contract.schema";
+import {
+  NewPlanet,
+  UpdatePlanet,
+} from "../../orpc/contracts/planet/planet.contract.schema";
 import { User } from "src/schemas/user.schema";
 import { planets } from "./planet.mock";
 

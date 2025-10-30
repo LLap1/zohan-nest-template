@@ -1,22 +1,22 @@
 import { Controller, Get } from "@nestjs/common";
 import { Implement, implement, ORPCError } from "@orpc/nest";
-import { contract } from "src/orpc/contract";
+import { root } from "src/orpc/contracts/root";
 import { PlanetService } from "./planet.service";
 
 @Controller()
 export class PlanetController {
   constructor(private readonly planetService: PlanetService) {}
 
-  @Implement(contract.planet.list)
+  @Implement(root.planet.list)
   list() {
-    return implement(contract.planet.list).handler(({ input }) => {
+    return implement(root.planet.list).handler(({ input }) => {
       return this.planetService.list();
     });
   }
 
-  @Implement(contract.planet.find)
+  @Implement(root.planet.find)
   find() {
-    return implement(contract.planet.find).handler(({ input }) => {
+    return implement(root.planet.find).handler(({ input }) => {
       const planet = this.planetService.find(input.id);
 
       if (!planet) {
@@ -27,16 +27,16 @@ export class PlanetController {
     });
   }
 
-  @Implement(contract.planet.create)
+  @Implement(root.planet.create)
   create() {
-    return implement(contract.planet.create).handler(({ input }) => {
+    return implement(root.planet.create).handler(({ input }) => {
       return this.planetService.create(input);
     });
   }
 
-  @Implement(contract.planet.update)
+  @Implement(root.planet.update)
   update() {
-    return implement(contract.planet.update).handler(({ input, errors }) => {
+    return implement(root.planet.update).handler(({ input, errors }) => {
       const planet = this.planetService.find(input.id);
 
       if (!planet) {

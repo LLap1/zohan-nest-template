@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PlanetSchema } from "../../schemas/planet.schema";
+import { PlanetSchema } from "../../../schemas/planet.schema";
 import { UserSchema } from "src/schemas/user.schema";
 
 export const PlanetListSchema = z.object({

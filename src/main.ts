@@ -4,8 +4,8 @@ import { apiReference } from "@scalar/nestjs-api-reference";
 import { config } from "./config";
 import { logger } from "./lib/logger/logger";
 import { WinstonModule } from "nest-winston";
-import { generateOpenAPIDocument } from "./orpc/docs/open-api.docs";
-import { openApiClient } from "./orpc/client";
+import { generateOpenAPIDocument } from "./docs/open-api.docs";
+import { client } from "./orpc/client";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -25,7 +25,7 @@ async function bootstrap() {
   );
 
   app.listen(config.nest.port).then(async () => {
-    const planets = await openApiClient.planet.list();
+    const planets = await client.planet.list();
     console.log(planets);
   });
 }
